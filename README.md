@@ -2,5 +2,6 @@
 
 Audio file to a video with relevant images
 
-Inspired by youtuber Carykh
-Flickr scraper by Ultralytics LLC
+Inspired by youtuber Carykh.
+
+Flickr scraper by Ultralytics LLC.
