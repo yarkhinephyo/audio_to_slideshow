@@ -3,3 +3,4 @@ venv
 config.py
 __pycache__
 output
+wav_files

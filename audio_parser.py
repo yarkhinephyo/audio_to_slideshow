@@ -15,9 +15,8 @@ def get_text_from_audio(audio_file):
     with open(audio_file, 'rb') as f: 
         dic = json.loads(json.dumps(service.recognize(audio=f, content_type='audio/wav', model='en-US_NarrowbandModel', continuous=True, timestamps=True,).get_result(), indent=2)) 
     
-    transcript = None
-    if dic.get('results'):
-        print(dic)
-        transcript = dic['results'][0]['alternatives'][0]['transcript']
+    transcript = ''
+    for item in dic.get('results'):
+        transcript += ' ' + item['alternatives'][0]['transcript']
         
     return transcript
