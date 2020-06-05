@@ -2,3 +2,4 @@ images
 venv
 config.py
 __pycache__
+output
