@@ -2,6 +2,12 @@ import shutil
 import os
 from PIL import Image
 
+def navigate_up_directory(iteration):
+    cwd = os.getcwd()
+    for i in range(iteration):
+        os.chdir("..")
+    return cwd
+
 def clear_images():
     shutil.rmtree(os.path.join(os.getcwd(), 'images'))
 
