@@ -7,9 +7,6 @@ from video import save_output_video
 import os
 import time
 
-wav_dir = os.path.join(os.getcwd(), "wav_files")
-audio_file = os.path.join(os.getcwd(), "wav_files", os.listdir(wav_dir)[0])
-
 def handle_audio_file(audio_file):
     parsed_text, timestamps = get_text_from_audio(audio_file)
     cleaned_text = get_expressions_removed(parsed_text)
@@ -56,11 +53,14 @@ def make_required_folder(folder):
         os.mkdir(folder)
 
 
-DEBUG = True
+DEBUG = False
 
 # ------------ METHODS ABOVE ---------------- #
 if not DEBUG:   
     navigate_up_directory(2)
+
+wav_dir = os.path.join(os.getcwd(), "wav_files")
+audio_file = os.path.join(os.getcwd(), "wav_files", os.listdir(wav_dir)[0])
 
 sentences, timestamps = handle_audio_file(audio_file)
 frame_durations = get_frame_durations(sentences, timestamps)
