@@ -1,4 +1,5 @@
 from audio_parser import get_text_from_audio
+from text_processing import *
 from utils import *
 from flickr_scraper import get_urls
 from image_edit import add_text_to_image, save_gif
@@ -8,7 +9,7 @@ wav_dir = os.path.join(os.getcwd(), "wav_files")
 audio_file = os.path.join(os.getcwd(), "wav_files", os.listdir(wav_dir)[0])
 
 def handle_audio_file(audio_file):
-    parsed_text = get_text_from_audio(audio_file)
+    parsed_text, timestamps = get_text_from_audio(audio_file)
     cleaned_text = get_expressions_removed(parsed_text)
     pos_tags = get_pos_tags(cleaned_text)
     search_terms = get_search_terms(pos_tags)
@@ -16,7 +17,7 @@ def handle_audio_file(audio_file):
     for pos, search_term in search_terms:
         get_urls(search_term, str(pos), n=3, download=True)
 
-    return get_sentences(pos_tags, search_terms)
+    return get_sentences(pos_tags, search_terms), timestamps
 
 def add_text_to_images(sentences):
     save_paths = []
@@ -50,10 +51,12 @@ def make_output_folder():
 
 # ------------ METHODS ABOVE ---------------- #
 
-sentences = handle_audio_file(audio_file)
+sentences, timestamps = handle_audio_file(audio_file)
+frame_durations = get_frame_durations(sentences, timestamps)
+
 clear_corrupted_images("images")
 save_paths = add_text_to_images(sentences)
 
-save_gif(save_paths, "output/output.gif")
+save_gif(save_paths, "output/output.gif", [duration for sentence, duration in frame_durations])
 
 clear_images()
