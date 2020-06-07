@@ -1,4 +1,5 @@
 from PIL import Image, ImageDraw, ImageFont
+from config import WIDTH, HEIGHT
 
 def resize(image_pil, width, height):
     '''
@@ -22,11 +23,11 @@ def resize(image_pil, width, height):
 
 def add_text_to_image(text, save_path, img_path=None):
     if img_path:
-        writeimg = resize(Image.open(img_path), 500, 400)
+        writeimg = resize(Image.open(img_path), WIDTH, HEIGHT)
         newimg = Image.new("RGB", writeimg.size)
         newimg.paste(writeimg)
     else:
-        newimg = Image.new("RGB", (500, 400))
+        newimg = Image.new("RGB", (WIDTH, HEIGHT))
     width_image, height_image = newimg.size[0], newimg.size[1]
 
     draw = ImageDraw.Draw(newimg)

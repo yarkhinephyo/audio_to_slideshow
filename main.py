@@ -53,7 +53,7 @@ def make_required_folder(folder):
         os.mkdir(folder)
 
 
-DEBUG = False
+DEBUG = True
 
 # ------------ METHODS ABOVE ---------------- #
 if not DEBUG:   
