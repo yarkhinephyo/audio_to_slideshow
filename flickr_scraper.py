@@ -22,9 +22,10 @@ def get_urls(search, dir_name, n=10, download=False):
     t = time.time()
     flickr = FlickrAPI(key, secret)
     photos = flickr.walk(text=search,  # http://www.flickr.com/services/api/flickr.photos.search.html
-                         extras='url_o',
+                         extras=['url_o', 'license'],
                          per_page=100,
-                         sort='relevance')
+                         sort='relevance',
+                         license="7,8,9,10")
 
     if download:
         dir = os.getcwd() + os.sep + 'images' + os.sep + dir_name + os.sep
