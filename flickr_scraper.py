@@ -7,10 +7,7 @@ import time
 import requests
 from flickrapi import FlickrAPI
 
-from config import FLICKR_KEY, FLICKR_SECRET
-
-key = FLICKR_KEY   # Flickr API key https://www.flickr.com/services/apps/create/apply
-secret = FLICKR_SECRET
+from config import FLICKR_KEY, FLICKR_SECRET, LICENSE_TYPES
 
 
 def download_uri(uri, dir='./'):
@@ -18,19 +15,25 @@ def download_uri(uri, dir='./'):
         f.write(requests.get(uri, stream=True).content)
 
 
-def get_urls(search, dir_name, n=10, download=False):
+def get_urls(search, dir_name, n=10):
+    """Given a search term, retrieves the top 10 relevant photos and optionally downloads it into ./images/*
+
+    Args:
+        search (str): search_term
+        dir_name (str): subdirectory_name
+        n (int, optional): [top_num_of_photos]. Defaults to 10
+    """
     t = time.time()
-    flickr = FlickrAPI(key, secret)
-    photos = flickr.walk(text=search,  # http://www.flickr.com/services/api/flickr.photos.search.html
+    flickr = FlickrAPI(FLICKR_KEY, FLICKR_SECRET)
+    photos = flickr.walk(text=search,
                          extras=['url_o', 'license'],
                          per_page=100,
                          sort='relevance',
-                         license="7,8,9,10")
+                         license=LICENSE_TYPES)
 
-    if download:
-        dir = os.getcwd() + os.sep + 'images' + os.sep + dir_name + os.sep
-        if not os.path.exists(dir):
-            os.makedirs(dir)
+    dir = os.getcwd() + os.sep + 'images' + os.sep + dir_name + os.sep
+    if not os.path.exists(dir):
+        os.makedirs(dir)
 
     urls = []
     for i, photo in enumerate(photos):
@@ -42,27 +45,11 @@ def get_urls(search, dir_name, n=10, download=False):
             url = photo.get('url_o')  # original size
             if url is None:
                 url = 'https://farm%s.staticflickr.com/%s/%s_%s_b.jpg' % \
-                      (photo.get('farm'), photo.get('server'), photo.get('id'), photo.get('secret'))  # large size
+                      (photo.get('farm'), photo.get('server'), photo.get(
+                          'id'), photo.get('secret'))  # large size
 
-            # download
-            if download:
-                download_uri(url, dir)
+            download_uri(url, dir)
 
             urls.append(url)
-            print('%g/%g %s' % (i, n, url))
         except:
             print('%g/%g error...' % (i, n))
-
-    print('Done. (%.1fs)' % (time.time() - t) + ('\nAll images saved to %s' % dir if download else ''))
-
-
-# if __name__ == '__main__':
-#     parser = argparse.ArgumentParser()
-#     parser.add_argument('--search', type=str, default='honeybees on flowers', help='flickr search term')
-#     parser.add_argument('--n', type=int, default=10, help='number of images')
-#     parser.add_argument('--download', action='store_true', help='download images')
-#     opt = parser.parse_args()
-
-#     get_urls(search=opt.search,  # search term
-#              n=opt.n,  # max number of images
-#              download=opt.download)  # download images
