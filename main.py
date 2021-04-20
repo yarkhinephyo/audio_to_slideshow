@@ -7,8 +7,21 @@ from video import save_output_video
 import os
 import time
 
-def handle_audio_file(audio_file):
-    parsed_text, timestamps = get_text_from_audio(audio_file)
+def handle_audio_file(audio_file_path):
+    """Given the path to audio file, 
+    return transcript broken down into meaningful sentences and a list of timestamp for every word.
+    Saves the images corresponding to each sentence at ./images/*/*.jpg
+
+    Args:
+        audio_file_path (str): Path to the audio file
+
+    Returns:
+        tuple: (
+            list_of_sentences,
+            list_of_all_word_timestamps
+        )
+    """
+    parsed_text, timestamps = get_text_from_audio(audio_file_path)
     cleaned_text = get_expressions_removed(parsed_text)
     pos_tags = get_pos_tags(cleaned_text)
     search_terms = get_search_terms(pos_tags)
@@ -30,9 +43,9 @@ if not DEBUG:
     navigate_up_directory(2)
 
 wav_dir = os.path.join(os.getcwd(), "wav_files")
-audio_file = os.path.join(os.getcwd(), "wav_files", os.listdir(wav_dir)[0])
+audio_file_path = os.path.join(os.getcwd(), "wav_files", os.listdir(wav_dir)[0])
 
-sentences, timestamps = handle_audio_file(audio_file)
+sentences, timestamps = handle_audio_file(audio_file_path)
 frame_durations = get_frame_durations(sentences, timestamps)
 
 clear_corrupted_images("images")
@@ -42,7 +55,7 @@ make_required_folder(os.path.join("images", "gif"))
 save_gif(save_paths, os.path.join("images", "gif", "output.gif"), [duration for sentence, duration in frame_durations] + [200])
 
 make_required_folder("output")
-save_output_video(os.path.join("images", "gif", "output.gif"), audio_file, os.path.join("output", "output.mp4"))
+save_output_video(os.path.join("images", "gif", "output.gif"), audio_file_path, os.path.join("output", "output.mp4"))
 
 time.sleep(2)
 try:

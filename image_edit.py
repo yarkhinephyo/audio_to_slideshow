@@ -78,7 +78,7 @@ def add_text_to_images(sentences, save_folder, images_path):
         images_path (str): Original images directory
 
     Returns:
-        [type]: [description]
+        list: Paths of saved images
     """
     save_paths = []
 
