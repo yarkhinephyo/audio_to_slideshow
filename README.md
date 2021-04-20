@@ -1,19 +1,32 @@
-## audio_to_slideshow
 
-Automatically converts a speech in an audio file into a video with accompanying relevant images
+# Audio To Slideshow 
 
-### Instructions
-- Add a config.py to the root folder
-  - Set IAM_AUTHENTICATOR (From IBM Speech to text API), IBM_URL, FLICKR_KEY (From Flickr image API), FLICKR_SECRET
-  - Set WIDTH, HEIGHT (Dimensions of output video)
-- Place an audio file of a speech <.wav> in the wav_files directory
-- Run main.py
-- The output video <.mp4> will be produced
-  
-### Sample output video
-- https://youtu.be/j8BddvXT9d0
+Automatically converts :speech_balloon: speech in an audio file into a :video_camera: video with accompanying relevant images.
+Medium: https://medium.com/@yarkhinephyo/hey-python-make-me-a-video-e7be78590b8d
 
-### Acknowledgements
+## Usage
+Ensure you have subscribed to IBM Watson's Speech to Text service and Flickr API.
+```
+cd ./audio_to_slideshow
+echo '
+IAM_AUTHENTICATOR={ibm_iam_authenticator}
+IBM_URL={speech_to_text_watson_instance_url}
+FLICKR_KEY={flickr_key}
+FLICKR_SECRET={flickr_secret}
+' > .env
+
+docker build -t audio_to_images:1.0 .
+
+# Ensure .mp3 file exists at /path/to/input/dir
+docker run --rm --env-file ./.env -v /path/to/input/dir:/app/input -v /path/to/output/dir:/app/output audio_to_images:1.0
+
+# The output video file will be at /path/to/output/dir
+```
+## Sample Output Video
+[![IMAGE ALT TEXT](http://img.youtube.com/vi/j8BddvXT9d0/0.jpg)](http://www.youtube.com/watch?v=j8BddvXT9d0 "Sample Output Video")
+
+## Acknowledgements
+
 - Inspired by youtuber Carykh.
 - Flickr scraper by Ultralytics LLC.
 - Text to speech API by IBM
