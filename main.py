@@ -48,7 +48,7 @@ audio_file_path = os.path.join(os.getcwd(), "wav_files", os.listdir(wav_dir)[0])
 sentences, timestamps = handle_audio_file(audio_file_path)
 frame_durations = get_frame_durations(sentences, timestamps)
 
-clear_corrupted_images("images")
+clear_corrupted_images(os.path.join(os.getcwd(), "images"))
 save_paths = add_text_to_images(sentences, os.path.join(os.getcwd(), 'images', 'final'), os.path.join(os.getcwd(), 'images'))
 
 make_required_folder(os.path.join("images", "gif"))
