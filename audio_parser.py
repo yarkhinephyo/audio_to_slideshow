@@ -27,7 +27,7 @@ def get_text_from_audio(audio_file):
             ]
         )
     """
-    mime_type = mimetypes.guess_type(audio_file)
+    mime_type = mimetypes.guess_type(audio_file)[0]
     assert mime_type.split("/")[0] == 'audio'
 
     with open(audio_file, 'rb') as f:

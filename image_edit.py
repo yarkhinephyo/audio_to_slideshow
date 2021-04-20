@@ -1,4 +1,5 @@
 from PIL import Image, ImageDraw, ImageFont
+import os
 
 from config import WIDTH, HEIGHT
 
@@ -62,6 +63,48 @@ def add_text_to_image(text, save_path, img_path=None):
     draw.text((int(0.05*width_image), int(0.75*height_image)),
               text, (255, 255, 255, 255), font=font)
     newimg.save(save_path)
+
+def add_text_to_images(sentences, save_folder, images_path):
+    """
+    Given a list of sentences, add them to corresponding images.
+    The first sentence will be added to the picture in the first directory.
+    Directories are named as integers.
+    Example: If images_path containes /3/*.jpg, /6/*.jpg, /8/*.jpg,
+        the second sentence will be embedded inside /6/*.jpg
+
+    Args:
+        sentences (list): List of sentences where a sentence takes a frame
+        save_folder (str): Save directory for new images
+        images_path (str): Original images directory
+
+    Returns:
+        [type]: [description]
+    """
+    save_paths = []
+
+    if not os.path.isdir(save_folder):
+        os.mkdir(save_folder)
+    # Sort the folders after converting to integers
+    sorted_folders = sorted([int(name) for name in os.listdir(images_path) if name != 'final' and name != 'gif'])
+
+    for i, folder in enumerate([str(name) for name in sorted_folders]):
+        indiv_folder = os.path.join(images_path, folder)
+        save_path = os.path.join(save_folder, f'{i}.jpg')
+
+        if len(os.listdir(indiv_folder)) == 0:
+            add_text_to_image(sentences[i], save_path)
+        else:
+            img_path = os.path.join(indiv_folder, os.listdir(indiv_folder)[0])
+            add_text_to_image(sentences[i], save_path, img_path)
+
+        save_paths.append(save_path)
+
+    # Final black frame
+    save_path = os.path.join(save_folder, '1000.jpg')
+    add_text_to_image('X', save_path)
+    save_paths.append(save_path)
+
+    return save_paths
 
 
 def save_gif(img_save_paths, dest_path, duration=2000):
