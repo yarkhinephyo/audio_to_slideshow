@@ -4,3 +4,4 @@ config.py
 __pycache__
 output
 tmp
+.venv
