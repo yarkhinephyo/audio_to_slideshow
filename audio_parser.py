@@ -16,7 +16,7 @@ def get_text_from_audio(audio_file):
     """Retrieves transcript and timestamps of words from an audio file
 
     Args:
-        audio_file (str): path_to_audio_file
+        audio_file (str): Path to audio file
 
     Returns:
         [tuple]: (

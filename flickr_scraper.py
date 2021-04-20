@@ -19,9 +19,9 @@ def get_urls(search, dir_name, n=10):
     """Given a search term, retrieves the top 10 relevant photos and optionally downloads it into ./images/*
 
     Args:
-        search (str): search_term
-        dir_name (str): subdirectory_name
-        n (int, optional): [top_num_of_photos]. Defaults to 10
+        search (str): Search Term
+        dir_name (str): Subdirectory Name
+        n (int, optional): Top Num Of Photos. Defaults to 10
     """
     t = time.time()
     flickr = FlickrAPI(FLICKR_KEY, FLICKR_SECRET)
