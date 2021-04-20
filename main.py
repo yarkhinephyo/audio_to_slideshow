@@ -13,8 +13,8 @@ def handle_audio_file(audio_file):
     pos_tags = get_pos_tags(cleaned_text)
     search_terms = get_search_terms(pos_tags)
 
-    for pos, search_term in search_terms:
-        get_urls(search_term, str(pos), n=3)
+    for position, search_term in search_terms:
+        get_urls(search_term, os.path.join(os.getcwd(), 'images', str(position)), n=3)
 
     return get_sentences(pos_tags, search_terms), timestamps
 

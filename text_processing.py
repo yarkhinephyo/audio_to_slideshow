@@ -32,8 +32,6 @@ def get_search_terms(pos_tags):
             skip = True
         elif (pos_tags[i][1] in VALID_POS) and (pos_tags[i][0] not in STOPWORDS):
             search_terms.append((i, pos_tags[i][0]))
-    print()
-    print(search_terms)
     return search_terms
 
 def get_sentences(pos_tags, search_terms):

@@ -15,12 +15,12 @@ def download_uri(uri, dir='./'):
         f.write(requests.get(uri, stream=True).content)
 
 
-def get_urls(search, dir_name, n=10):
-    """Given a search term, retrieves the top 10 relevant photos and optionally downloads it into ./images/*
+def get_urls(search, dir_path, n=10):
+    """Given a search term, retrieves the top 10 relevant photos and downloads it into dir_path
 
     Args:
         search (str): Search Term
-        dir_name (str): Subdirectory Name
+        dir_path (str): Subdirectory Path
         n (int, optional): Top Num Of Photos. Defaults to 10
     """
     t = time.time()
@@ -31,9 +31,8 @@ def get_urls(search, dir_name, n=10):
                          sort='relevance',
                          license=LICENSE_TYPES)
 
-    dir = os.getcwd() + os.sep + 'images' + os.sep + dir_name + os.sep
-    if not os.path.exists(dir):
-        os.makedirs(dir)
+    if not os.path.exists(dir_path):
+        os.makedirs(dir_path)
 
     urls = []
     for i, photo in enumerate(photos):
@@ -48,7 +47,7 @@ def get_urls(search, dir_name, n=10):
                       (photo.get('farm'), photo.get('server'), photo.get(
                           'id'), photo.get('secret'))  # large size
 
-            download_uri(url, dir)
+            download_uri(url, dir_path + os.sep)
 
             urls.append(url)
         except:
