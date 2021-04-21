@@ -1,7 +1,10 @@
 
-# Audio To Slideshow 
+Audio To Slideshow 
+=======
+![GitHub](https://img.shields.io/github/license/yarkhinephyo/audio_to_slideshow?style=flat-square)
 
 Automatically converts :speech_balloon: speech in an audio file into a :video_camera: video with accompanying relevant images.
+
 Medium: https://medium.com/@yarkhinephyo/hey-python-make-me-a-video-e7be78590b8d
 
 ## Usage
