@@ -24,7 +24,7 @@ numpy==1.18.5
 oauthlib==3.1.0
 pathlib==1.0.1
 pefile==2019.4.18
-Pillow==8.1.2
+Pillow==8.2.0
 proglog==0.1.9
 pycparser==2.20
 PyJWT==1.7.1
