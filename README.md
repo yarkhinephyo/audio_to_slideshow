@@ -19,16 +19,16 @@ FLICKR_SECRET={flickr_secret}
 ' > .env
 ```
 
-#### Method 1: Dockerfile
+#### Method 1: Dockerfile (Recommended)
 
 Ensure Docker engine is running
 ```
 docker build -t audio_to_images:1.0 .
 
-# Ensure .mp3 file exists at /path/to/input/dir
-docker run --rm --env-file ./.env -v /path/to/input/dir:/app/input -v /path/to/output/dir:/app/output audio_to_images:1.0
+# Ensure .mp3 file exists at /abs/path/to/input/dir
+docker run --rm --env-file ./.env -v ${pwd}/input:/app/input -v ${pwd}:/app/output audio_to_images:1.0
 
-# The output video file will be at /path/to/output/dir
+# The output video file will be at the current directory
 ```
 #### Method 2: Pipfile
 
