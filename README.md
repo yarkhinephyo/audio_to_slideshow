@@ -25,7 +25,7 @@ Ensure Docker engine is running
 ```
 docker build -t audio_to_images:1.0 .
 
-# Ensure .mp3 file exists at /abs/path/to/input/dir
+# Ensure .mp3 file exists at ./input (A sample is there)
 docker run --rm --env-file ./.env -v ${pwd}/input:/app/input -v ${pwd}:/app/output audio_to_images:1.0
 
 # The output video file will be at the current directory
