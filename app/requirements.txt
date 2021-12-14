@@ -24,7 +24,7 @@ idna==2.9
 imageio-ffmpeg==0.4.2
 imageio==2.8.0
 joblib==0.15.1
-lxml==4.6.3
+lxml==4.6.5
 macholib==1.14
 moviepy==1.0.3
 nltk==3.5
