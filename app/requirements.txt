@@ -28,7 +28,7 @@ lxml==4.6.5
 macholib==1.14
 moviepy==1.0.3
 nltk==3.5
-numpy==1.18.5
+numpy==1.22.0
 oauthlib==3.1.0
 pathlib==1.0.1
 pefile==2019.4.18
